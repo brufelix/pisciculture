@@ -1,0 +1,57 @@
+<div class="container">
+    <div [hidden]="submitted">
+        <h1>Cadastrar novo dado</h1>
+        <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+            <div class="form-group">
+                <label for="name">Temperatura</label>
+                <input type="text" class="form-control" id="temp" required [(ngModel)]="model.temperatura"
+                    name="temperatura" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    Temperatura é requerido
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="alterEgo">PH</label>
+                <input type="text" class="form-control" id="ph" [(ngModel)]="model.ph" name="ph">
+            </div>
+
+            <div class="form-group">
+                <label for="power">Quantidade de ração</label>
+                <input type="text" class="form-control" id="qtdracao" [(ngModel)]="model.qtdracao" name="qtdracao">
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" class="form-control" id="data" [(ngModel)]="model.data" name="data">
+                <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+                    Data é requerido
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="power">Período</label>
+                <select class="form-control" id="data" required [(ngModel)]="model.periodo" name="periodo"
+                    #power="ngModel">
+                    <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+                </select>
+                <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+                    Data é requerido
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Salvar</button>
+            <button routerLink="/" class="btn btn-link" [disabled]="!heroForm.form.valid">Ir para Home</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .no-style .ng-valid {
+        border-left: 1px solid #CCC
+    }
+
+    .no-style .ng-invalid {
+        border-left: 1px solid #CCC
+    }
+</style>
