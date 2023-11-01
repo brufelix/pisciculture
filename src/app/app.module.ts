@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,8 +14,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormComponent } from './components/form/form.component';
+import { Table } from './components/table/table.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ListComponent } from './pages/list/list.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,11 @@ import { RegisterComponent } from './pages/register/register.component';
     ButtonComponent,
     FormComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListComponent
   ],
+  providers: [],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,9 +40,9 @@ import { RegisterComponent } from './pages/register/register.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    NgFor
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    NgFor,
+    Table,
+    HttpClientModule
+  ]
 })
 export class AppModule { }
