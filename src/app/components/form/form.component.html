@@ -33,15 +33,19 @@
                 <label for="power">Período</label>
                 <select class="form-control" id="data" required [(ngModel)]="model.periodo" name="periodo"
                     #power="ngModel">
-                    <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+                    <option *ngFor="let pow of periodo" [value]="pow">{{pow}}</option>
                 </select>
                 <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
                     Data é requerido
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Salvar</button>
-            <button routerLink="/" class="btn btn-link" [disabled]="!heroForm.form.valid">Ir para Home</button>
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">
+                Salvar
+            </button>
+            <button routerLink="/" class="btn btn-link">
+                Ir para Home
+            </button>
         </form>
     </div>
 </div>

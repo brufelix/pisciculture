@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import { Form } from '../../form';
+import { Service } from 'src/app/services';
+import { PeriodicElement } from '../table/table.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-form',
@@ -8,14 +11,28 @@ import { Form } from '../../form';
     styleUrls: ['./form.component.css']
 })
 export class FormComponent {
+    constructor(private service: Service, private router: Router) { }
 
-    powers = ["Manhã", "Tarde", "Noite",];
+    periodo = ["Manhã", "Tarde", "Noite",];
 
-    model = new Form(18, '180 Graus', "10/12/2023", '3', "10/12/2023", "Manhã");
+    model = new Form(10, '', "", '', "", "");
 
     submitted = false;
 
-    onSubmit() { this.submitted = true; }
+    onSubmit() {
+        const newData: PeriodicElement = {
+            tem: this.model.temperatura,
+            ph: +this.model.ph,
+            qtdracao: +this.model.qtdracao,
+            periodo: this.model.periodo,
+            data: this.model.data,
+        }
+        this.service.createData(newData).subscribe(data => {
+            console.log(data)
+        });
+        this.submitted = true;
+        this.router.navigate(["/"])
+    }
 
     get diagnostic() { return JSON.stringify(this.model); }
 
@@ -23,6 +40,5 @@ export class FormComponent {
         return form && form.controls['name'] &&
             form.controls['name'].value;
     }
-
 
 }
