@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { PeriodicElement } from '../components/table/table.component';
 
 @Injectable({
@@ -11,6 +11,10 @@ export class Service {
 
     constructor(private http: HttpClient) { }
 
+    getUrlBase() {
+        return this.baseUrl
+    }
+
     getData(): Observable<PeriodicElement[]> {
         return this.http.get<PeriodicElement[]>(`${this.baseUrl}/data`);
     }
@@ -19,5 +23,10 @@ export class Service {
         const id = Math.floor(Math.random() * (2000 + 1)) - 1000;
 
         return this.http.post<PeriodicElement>(`${this.baseUrl}/data`, { ...data, id: Math.abs(id) });
+    }
+
+    remove(id: string): Observable<PeriodicElement> {
+        console.log(this.baseUrl + "/data/" + id)
+        return this.http.delete<any>(this.baseUrl + "/data/" + id);
     }
 }
