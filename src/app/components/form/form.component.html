@@ -4,7 +4,7 @@
         <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
             <div class="form-group">
                 <label for="name">Temperatura</label>
-                <input type="text" class="form-control" id="temp" required [(ngModel)]="model.temperatura"
+                <input type="number" class="form-control" id="temp" required [(ngModel)]="model.temperatura"
                     name="temperatura" #name="ngModel">
                 <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                     Temperatura é requerido
@@ -13,12 +13,12 @@
 
             <div class="form-group">
                 <label for="alterEgo">PH</label>
-                <input type="text" class="form-control" id="ph" [(ngModel)]="model.ph" name="ph">
+                <input type="number" class="form-control" id="ph" [(ngModel)]="model.ph" name="ph">
             </div>
 
             <div class="form-group">
                 <label for="power">Quantidade de ração</label>
-                <input type="text" class="form-control" id="qtdracao" [(ngModel)]="model.qtdracao" name="qtdracao">
+                <input type="number" class="form-control" id="qtdracao" [(ngModel)]="model.qtdracao" name="qtdracao">
             </div>
 
             <div class="form-group">
