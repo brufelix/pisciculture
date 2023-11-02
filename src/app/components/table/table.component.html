@@ -3,7 +3,7 @@
   <!-- Position Column -->
   <ng-container matColumnDef="tem">
     <th mat-header-cell *matHeaderCellDef> Temperatura </th>
-    <td mat-cell *matCellDef="let element"> {{element.tem }} </td>
+    <td mat-cell *matCellDef="let element"> {{element.tem + "º" }} </td>
   </ng-container>
 
   <!-- Name Column -->
@@ -15,7 +15,7 @@
   <!-- Weight Column -->
   <ng-container matColumnDef="qtdracao">
     <th mat-header-cell *matHeaderCellDef> Quantidade de ração </th>
-    <td mat-cell *matCellDef="let element"> {{element.qtdracao || "-"}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.qtdracao|| "-"}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
