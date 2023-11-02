@@ -37,7 +37,7 @@ export class Table implements OnInit {
     constructor(private service: Service) { }
 
     displayedColumns: string[] = ['tem', 'ph', 'qtdracao', 'periodo', 'data'];
-    dataSource = [];
+    dataSource: PeriodicElement[] = [];
 
     ngOnInit(): void {
         this.service.getData().subscribe(data => {

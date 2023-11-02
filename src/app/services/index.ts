@@ -11,13 +11,13 @@ export class Service {
 
     constructor(private http: HttpClient) { }
 
-    getData(): Observable<any> {
-        return this.http.get(`${this.baseUrl}/data`);
+    getData(): Observable<PeriodicElement[]> {
+        return this.http.get<PeriodicElement[]>(`${this.baseUrl}/data`);
     }
 
-    createData(data: PeriodicElement): Observable<any> {
+    createData(data: PeriodicElement): Observable<PeriodicElement> {
         const id = Math.floor(Math.random() * (2000 + 1)) - 1000;
 
-        return this.http.post(`${this.baseUrl}/data`, { ...data, id: Math.abs(id) });
+        return this.http.post<PeriodicElement>(`${this.baseUrl}/data`, { ...data, id: Math.abs(id) });
     }
 }
