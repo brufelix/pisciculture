@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { FormComponent } from './components/form/form.component';
 import { Table } from './components/table/table.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -42,7 +43,8 @@ import { ListComponent } from './pages/list/list.component';
     MatSelectModule,
     NgFor,
     Table,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ]
 })
 export class AppModule { }

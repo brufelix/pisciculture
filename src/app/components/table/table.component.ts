@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { Service } from 'src/app/services';
 
 export interface PeriodicElement {
@@ -31,17 +34,25 @@ export interface PeriodicElement {
     styleUrls: ['table.component.css'],
     templateUrl: 'table.component.html',
     standalone: true,
-    imports: [MatTableModule],
+    imports: [MatTableModule, MatIconModule],
 })
 export class Table implements OnInit {
-    constructor(private service: Service) { }
+    constructor(private service: Service, private http: HttpClient) { }
 
-    displayedColumns: string[] = ['tem', 'ph', 'qtdracao', 'periodo', 'data'];
+    displayedColumns: string[] = ['tem', 'ph', 'qtdracao', 'periodo', 'data', "actions"];
     dataSource: PeriodicElement[] = [];
 
     ngOnInit(): void {
         this.service.getData().subscribe(data => {
             this.dataSource = data;
         });
+    }
+
+    remove(id: string): Observable<any> {
+        return this.service.remove(id);
+    }
+
+    edit(): void {
+
     }
 }
