@@ -7,7 +7,7 @@ import { PeriodicElement } from '../components/table/table.component';
     providedIn: 'root'
 })
 export class Service {
-    private baseUrl = 'http://localhost:3000';
+    private baseUrl = 'https://api-mock-nine.vercel.app';
 
     constructor(private http: HttpClient) { }
 
