@@ -1,6 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
-import { PeriodicElement, Table } from '../table/table.component';
+import { PeriodicElement } from '../table/table.component';
 import { Service } from 'src/app/services';
 import { TableService } from 'src/app/services/table.service';
 
@@ -26,14 +26,12 @@ export class DialogComponent {
 
     onSubmit() {
         this.service.edit(this.model)
-            .subscribe(res => console.log("sucesso"))
-
-        this.service.getData().subscribe(data => {
-            console.log(data)
-            this.tableService.updateData(data)
-        });
-
-        this.close()
-        window.location.reload()
+            .subscribe(() =>
+                this.service.getData()
+                    .subscribe(data => {
+                        this.tableService.updateData(data);
+                        this.close()
+                    })
+            );
     }
 }

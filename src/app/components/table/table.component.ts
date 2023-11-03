@@ -49,15 +49,14 @@ export class Table implements OnInit {
     }
 
     remove(id: string) {
-        this.service.remove(id);
-
-        this.service.getData().subscribe(data => {
-            this.dataSource = data;
-        });
-
-        this.updateData()
-
-        window.location.reload()
+        this.service.remove(id)
+            .subscribe(() => {
+                this.service.getData()
+                    .subscribe(data => {
+                        this.dataSource = data;
+                        console.log(this.dataSource)
+                    });
+            });
 
         return;
     }
@@ -65,8 +64,13 @@ export class Table implements OnInit {
     edit(data: PeriodicElement) {
         const dialogRef = this.dialog.open(DialogComponent, { data });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(`O diálogo foi fechado: ${result}`);
-        });
+        dialogRef.afterClosed()
+            .subscribe(() => {
+                this.service.getData()
+                    .subscribe(data => {
+                        this.dataSource = data;
+                        console.log(this.dataSource)
+                    });
+            });
     }
 }

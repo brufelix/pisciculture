@@ -26,10 +26,7 @@ export class Service {
     }
 
     remove(id: string) {
-        this.http.delete<any>(this.baseUrl + "/data/" + id).subscribe((data) => {
-            console.log(data)
-            console.log("success");
-        });
+        return this.http.delete<any>(this.baseUrl + "/data/" + id);
     }
 
     edit(data: PeriodicElement): Observable<PeriodicElement> {
