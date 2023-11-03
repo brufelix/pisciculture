@@ -7,7 +7,7 @@ import { PeriodicElement } from '../components/table/table.component';
     providedIn: 'root'
 })
 export class Service {
-    private baseUrl = 'https://api-mock-nine.vercel.app';
+    private baseUrl = 'http://localhost:9000';
 
     constructor(private http: HttpClient) { }
 
@@ -25,8 +25,14 @@ export class Service {
         return this.http.post<PeriodicElement>(`${this.baseUrl}/data`, { ...data, id: Math.abs(id) });
     }
 
-    remove(id: string): Observable<PeriodicElement> {
-        console.log(this.baseUrl + "/data/" + id)
-        return this.http.delete<any>(this.baseUrl + "/data/" + id);
+    remove(id: string) {
+        this.http.delete<any>(this.baseUrl + "/data/" + id).subscribe((data) => {
+            console.log(data)
+            console.log("success");
+        });
+    }
+
+    edit(data: PeriodicElement): Observable<PeriodicElement> {
+        return this.http.put<PeriodicElement>(`${this.baseUrl}/data/${data.id}`, data)
     }
 }

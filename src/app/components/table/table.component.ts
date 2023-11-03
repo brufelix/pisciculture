@@ -1,9 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { Observable } from 'rxjs';
 import { Service } from 'src/app/services';
+import { DialogComponent } from '../modal/modal.component';
+import { TableService } from 'src/app/services/table.service';
 
 export interface PeriodicElement {
     tem: string;
@@ -11,20 +14,9 @@ export interface PeriodicElement {
     qtdracao: number;
     data: string;
     periodo: string;
+    editando: boolean
+    id?: number
 }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//     { ph: 1, tem: '12', qtdracao: 1.0079, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 2, tem: '16', qtdracao: 4.0026, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 3, tem: '12', qtdracao: 6.941, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 4, tem: '144', qtdracao: 9.0122, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 5, tem: '23', qtdracao: 10.811, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 6, tem: '412', qtdracao: 12.0107, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 7, tem: '12', qtdracao: 14.0067, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 8, tem: '43', qtdracao: 15.9994, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 9, tem: '23', qtdracao: 18.9984, data: '25/12/2025', periodo: "Manhã" },
-//     { ph: 10, tem: '20', qtdracao: 20.1797, data: '25/12/2025', periodo: "Manhã" },
-// ];
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -34,25 +26,47 @@ export interface PeriodicElement {
     styleUrls: ['table.component.css'],
     templateUrl: 'table.component.html',
     standalone: true,
-    imports: [MatTableModule, MatIconModule],
+    imports: [MatTableModule, MatIconModule, FormsModule, CommonModule],
 })
 export class Table implements OnInit {
-    constructor(private service: Service, private http: HttpClient) { }
-
     displayedColumns: string[] = ['tem', 'ph', 'qtdracao', 'periodo', 'data', "actions"];
-    dataSource: PeriodicElement[] = [];
+    dataSource: any[] = [];
 
-    ngOnInit(): void {
+    constructor(private service: Service, public dialog: MatDialog, private tableService: TableService) {
+        this.dataSource = this.tableService.getTableData();
+    }
+
+    updateData() {
         this.service.getData().subscribe(data => {
-            this.dataSource = data;
+            this.tableService.updateData(data);
+
+            this.dataSource = this.tableService.getTableData()
         });
     }
 
-    remove(id: string): Observable<any> {
-        return this.service.remove(id);
+    ngOnInit(): void {
+        this.updateData()
     }
 
-    edit(): void {
+    remove(id: string) {
+        this.service.remove(id);
 
+        this.service.getData().subscribe(data => {
+            this.dataSource = data;
+        });
+
+        this.updateData()
+
+        window.location.reload()
+
+        return;
+    }
+
+    edit(data: PeriodicElement) {
+        const dialogRef = this.dialog.open(DialogComponent, { data });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`O diálogo foi fechado: ${result}`);
+        });
     }
 }

@@ -26,6 +26,7 @@ export class FormComponent {
             qtdracao: +this.model.qtdracao,
             periodo: this.model.periodo,
             data: this.model.data,
+            editando: false
         }
         this.service.createData(newData).subscribe(data => {
             console.log(data)
